@@ -1,0 +1,10 @@
+{
+  "name": "Assistente Wit",
+  "description": "Assistente Wit - Central interativa com comandos de voz e texto, múltiplos designs temáticos e portais de vídeo da Taiga e da natureza.",
+  "requestFramePermissions": [
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
