@@ -20,7 +20,7 @@ app.use(express.json({ limit: "25mb" }));
 app.use(express.urlencoded({ extended: true, limit: "25mb" }));
 
 // API health endpoint for probes and dev server health verification
-app.all(["/api/health", "/health"], (_req, res) => {
+app.all(["/api/health", "/health", "/api"], (_req, res) => {
   res.status(200).json({ status: "ok" });
 });
 
@@ -46,7 +46,7 @@ try {
 }
 
 // REST route for matching natural user input with defined triggers
-app.post("/api/gemini/analyze", async (req, res): Promise<any> => {
+app.post(["/api/gemini/analyze", "/gemini/analyze"], async (req, res): Promise<any> => {
   const { input, triggers } = req.body;
 
   if (!input || typeof input !== "string") {
@@ -137,7 +137,7 @@ INSTRUÇÕES E REGRAS:
 });
 
 // Dedicated REST route for the interactive speaking robot assistant "Eva-Flora"
-app.post("/api/gemini/assistant", async (req, res): Promise<any> => {
+app.post(["/api/gemini/assistant", "/gemini/assistant"], async (req, res): Promise<any> => {
   const { question } = req.body;
 
   if (!question || typeof question !== "string") {
@@ -182,7 +182,7 @@ Instruções de resposta:
 });
 
 // Dedicated REST route for Mobile Audio Recording Transcription via Gemini
-app.post("/api/transcribe-audio", async (req, res): Promise<any> => {
+app.post(["/api/transcribe-audio", "/transcribe-audio"], async (req, res): Promise<any> => {
   const { audioData, mimeType } = req.body;
 
   if (!audioData || typeof audioData !== "string") {
@@ -257,4 +257,10 @@ async function bootstrap() {
   });
 }
 
-bootstrap();
+// Export Express app for serverless platforms like Vercel
+export default app;
+
+// Only start the standalone HTTP listener if not running in a serverless environment (e.g. Vercel)
+if (!process.env.VERCEL && !process.env.NOW_REGION) {
+  bootstrap();
+}

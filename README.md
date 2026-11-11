@@ -15,6 +15,17 @@ View your app in AI Studio: https://ai.studio/apps/dbdd1833-2847-4a06-ab82-17b55
 
 1. Install dependencies:
    `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
+2. Set the `GEMINI_API_KEY` in [.env.example](.env.example) to your Gemini API key
 3. Run the app:
    `npm run dev`
+
+## Deploy no Vercel
+
+O projeto já está 100% configurado para o Vercel (`vercel.json`, `.npmrc` e Serverless Functions em `/api`):
+
+1. Conecte o repositório no [Vercel](https://vercel.com).
+2. Framework Preset: **Vite** (detectado automaticamente).
+3. Root Directory: `./` (padrão).
+4. Em **Environment Variables**, adicione (opcional, para IA completa):
+   - `GEMINI_API_KEY`: sua chave de API do Google Gemini.
+5. Clique em **Deploy**. As rotas SPA e a API Serverless funcionarão automaticamente.
